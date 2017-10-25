@@ -1,16 +1,26 @@
 <template>
   	<div class="card_list">
-		<table width="80%">
+		   	<paginate
+				:page-count="20"
+				:page-range="3"
+				:margin-pages="2"
+				:click-handler="clickCallback"
+				:prev-text="'Prev'"
+				:next-text="'Next'"
+				:container-class="'pagination'"
+				:page-class="'page-item'">
+			</paginate>
+		<table width="80%" class="table table-condensed table-hover table-striped">
 			<thead>
 				<tr>
-					<!-- <th>卡片</th> -->
+					<th>卡片</th>
 					<th>卡名</th>
 			</tr>
 			</thead>
 			<tbody>
 				<template v-for="card in cards">
 					<tr>
-						<!-- <td><img v-bind:src="host + card.picture.http_url" /></td> -->
+						<td><img v-bind:src="host + card.picture.http_url" /></td>
 						<td>{{card.name}}</td>
 					</tr>	  
 				</template>
@@ -36,6 +46,11 @@
         },
 
         methods: {
+			clickCallback(pageNum) {
+				this.page = pageNum
+				this.get_cards()
+			},
+
             get_cards() {
                 this.status = 'loading'
                 let url = "http://xiayuanyin.cn:4002/api/v1/cards?"
