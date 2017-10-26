@@ -1,32 +1,35 @@
 <template>
-  	<div class="card_list">
-		   	<paginate
-				:page-count="20"
-				:page-range="3"
-				:margin-pages="2"
-				:click-handler="clickCallback"
-				:prev-text="'Prev'"
-				:next-text="'Next'"
-				:container-class="'pagination'"
-				:page-class="'page-item'">
-			</paginate>
-		<table width="80%" class="table table-condensed table-hover table-striped">
-			<thead>
-				<tr>
-					<th>卡片</th>
-					<th>卡名</th>
-			</tr>
-			</thead>
-			<tbody>
-				<template v-for="card in cards">
+		<div class="card_list">
+				<paginate
+					:page-count="20"
+					:page-range="3"
+					:margin-pages="2"
+					:click-handler="clickCallback"
+					:prev-text="'Prev'"
+					:next-text="'Next'"
+					:container-class="'pagination'"
+					:page-class="'page-item'">
+				</paginate>
+			<table width="80%" class="table table-condensed table-hover table-striped">
+				<thead>
 					<tr>
-						<td><img v-bind:src="host + card.picture.http_url" /></td>
-						<td>{{card.name}}</td>
-					</tr>	  
-				</template>
-			</tbody>
-		</table>
-  </div>
+						<th>卡片</th>
+						<th>卡名</th>
+				</tr>
+				</thead>
+				<tbody>
+					<template v-for="card in cards">
+						<tr>
+							<td><img v-bind:src="host + card.picture.http_url" /></td>
+							<td>
+								{{card.name}}
+								<router-link :to="{path: '/cards/' + card.id}">跳转</router-link>
+								</td>
+						</tr>	  
+					</template>
+				</tbody>
+			</table>
+		</div>
 </template>
 
 <script>
